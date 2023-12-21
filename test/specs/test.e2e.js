@@ -6,14 +6,12 @@ describe("Android e2e", () => {
     await HomeScreen.openShoppingListScreen("No list selected");
     await ShoppingListScreen.createNewShoppingList("29");
   });
-
   it("should add new items to shopping list", async () => {
     const shoppingList = ["29", "30", "31", "32", "33", "34"];
     for (const e of shoppingList) {
       await HomeScreen.addItem(e);
     }
   });
-
   it("should edit each shopping list item", async () => {
     const editShoppingList = [
       { item: "a", newValue: "40" },
@@ -27,7 +25,6 @@ describe("Android e2e", () => {
       await HomeScreen.editItem(e.item, e.newValue);
     }
   });
-
   it("should remove 2 items from shopping list", async () => {
     const removedItems = ["al", "bm"];
     for (const e of removedItems) {
@@ -37,7 +34,6 @@ describe("Android e2e", () => {
       await expect(removeMsgIsDisplayed).toBe(true);
     }
   });
-
   it("should check all the items from shopping list", async () => {
     const actualItems = ["fq", "ep", "do", "cn"];
     for (const e of actualItems) {
@@ -45,14 +41,12 @@ describe("Android e2e", () => {
       await expect(itemIsChecked).toBe("true");
     }
   });
-
   it("should archive all the items from shopping list", async () => {
     await HomeScreen.archiveItems();
     const archiveListMsgIsDisplayed =
       await HomeScreen.archiveListMsgIsDisplayed();
     await expect(archiveListMsgIsDisplayed).toBe(true);
   });
-
   it("should delete the archived list", async () => {
     await HomeScreen.openShoppingListScreen("No list selected");
     const noCurrentListIsDisplayed =

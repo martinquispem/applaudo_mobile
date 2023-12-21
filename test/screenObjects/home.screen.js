@@ -2,7 +2,7 @@ const WDIO = require("./wdio");
 
 const SELECTORS = {
   createListButton: (value) => WDIO.androidUISelectorAccessibilityId(value),
-  addItem: (value) => `//android.widget.Button[@index="${value}"]`,
+  addItems: (value) => `//android.widget.Button[@index="${value}"]`,
   addSomeItemsLabel: WDIO.androidUISelectorAccessibilityId(
     "Add some items to your list!"
   ),
@@ -48,8 +48,7 @@ class HomeScreen {
       await $(SELECTORS["addSomeItemsLabel"])
     ).isDisplayed();
     addSomeItemsIsDisplayed ? (value = 4) : (value = 3);
-
-    await (await $(SELECTORS.addItem(value))).click();
+    await (await $(SELECTORS.addItems(value))).click();
     await driver.sendKeyEvent(itemValue);
     await (await this.getElement("addButton")).click();
   }
