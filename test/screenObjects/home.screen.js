@@ -22,6 +22,9 @@ const SELECTORS = {
       `//android.view.View[@content-desc="${value}"]/android.widget.CheckBox`
     ),
   archiveButton: WDIO.androidUISelectorAccessibilityId("ARCHIVE"),
+  archiveListMsg: WDIO.androidUISelectorAccessibilityId(
+    "List has been archived successfully."
+  ),
 };
 
 class HomeScreen {
@@ -31,6 +34,12 @@ class HomeScreen {
 
   async openShoppingListScreen(value) {
     await (await $(SELECTORS.createListButton(value))).click();
+  }
+
+  async getShoppingListValue(value) {
+    return await (
+      await $(SELECTORS.createListButton(value))
+    ).getAttribute("content-desc");
   }
 
   async addItem(itemValue) {
@@ -45,6 +54,10 @@ class HomeScreen {
     await (await this.getElement("addButton")).click();
   }
 
+  async getValueItem(id) {
+    return await (await $(SELECTORS.item(id))).getAttribute("content-desc");
+  }
+
   async editItem(id, newValue) {
     await (await $(SELECTORS.item(id))).click();
     await (await this.getElement("editButton")).click();
@@ -54,12 +67,24 @@ class HomeScreen {
   }
 
   async removeItem(id) {
-    await (await $(SELECTORS.item(id))).click();
+    const item = await $(SELECTORS.item(id));
+    await item.click();
     await (await this.getElement("removeButton")).click();
+    return await item.isDisplayed();
+  }
+
+  async removeMsgIsDisplayed() {
+    return await (await this.getElement("removeMsg")).isDisplayed();
+  }
+
+  async archiveListMsgIsDisplayed() {
+    return await (await this.getElement("archiveListMsg")).isDisplayed();
   }
 
   async checkBoxItem(id) {
-    await (await $(SELECTORS.itemCheckbox(id))).click();
+    const item = await $(SELECTORS.itemCheckbox(id));
+    await item.click();
+    return await item.getAttribute("checked");
   }
 
   async archiveItems() {

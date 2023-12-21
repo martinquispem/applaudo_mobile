@@ -12,7 +12,7 @@ class WDIO {
 
   /**
    * [Android] Function to get the element by class name
-   * @param  {string} id
+   * @param  {string} selector
    */
   androidUISelectorClassName(selector) {
     return `android=new UiSelector().className("${selector}")`;
@@ -20,15 +20,15 @@ class WDIO {
 
   /**
    * [Android] Function to get the element by text
-   * @param  {string} id
+   * @param  {string} text
    */
   androidUISelectorText(text) {
     return `android=new UiSelector().text("${text}")`;
   }
 
   /**
-   * [Android] Function to get the element by text
-   * @param  {string} id
+   * [Android] Function to get the element by xPath
+   * @param  {string} selector
    */
   androidUISelectorXPath(selector) {
     return selector;

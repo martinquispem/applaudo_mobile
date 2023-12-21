@@ -12,6 +12,9 @@ const SELECTORS = {
   noListMsg: WDIO.androidUISelectorAccessibilityId(
     "There are no archived lists."
   ),
+  noCurrentListMsg: WDIO.androidUISelectorAccessibilityId(
+    "There are no current lists, create one!"
+  ),
 };
 
 class ShoppingListScreen {
@@ -41,6 +44,10 @@ class ShoppingListScreen {
   async deleteArchivedList() {
     await (await this.getElement("deleteMenuButton")).click();
     await (await this.getElement("deleteConfirmButton")).click();
+  }
+
+  async noCurrentListMsgIsDisplayed() {
+    return await (await this.getElement("noCurrentListMsg")).isDisplayed();
   }
 }
 
